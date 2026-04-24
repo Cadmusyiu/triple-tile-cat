@@ -562,12 +562,47 @@ const GRID_COLS = 6;
 const TOTAL_SLOTS = 8;
 const POWERS = { undo: 3, hint: 3, shuffle: 3 };
 
-// Board layer configs for stacked 3D layout
-const BOARD_LAYERS = [
-  {rows:4, cols:6, offsetX:6,  offsetY:12,  tileW:50, tileH:50, baseZ:10},
-  {rows:2, cols:4, offsetX:31, offsetY:42,  tileW:50, tileH:50, baseZ:30},
-  {rows:1, cols:2, offsetX:81, offsetY:80,  tileW:50, tileH:50, baseZ:50},
-];
+// Board layout: 3 stacked layers
+// L0: 4 rows x 6 cols = 24 tiles. L1: 2 rows x 4 cols = 8. L2: 1 row x 2 cols = 2. Total = 34
+const BOARD_LAYOUT = {
+  L0: {rows:4, cols:6, offsetX:10, offsetY:10, tileW:46, tileH:46, baseZ:5},
+  L1: {rows:2, cols:4, offsetX:72, offsetY:38, tileW:46, tileH:46, baseZ:15},
+  L2: {rows:1, cols:2, offsetX:123, offsetY:68, tileW:46, tileH:46, baseZ:25},
+};
+
+function getTileLayer(idx) {
+  if (idx < 24) return 0;
+  if (idx < 32) return 1;
+  return 2;
+}
+
+function getTileRC(idx, layer) {
+  if (layer === 0) return {r: Math.floor(idx / 6), c: idx % 6};
+  if (layer === 1) { const i = idx - 24; return {r: Math.floor(i / 4), c: i % 4};}
+  const i = idx - 32; return {r: 0, c: i};
+}
+
+function isTileBlocked(idx) {
+  const layer = getTileLayer(idx);
+  if (layer === 2) return false;
+  const {r, c} = getTileRC(idx, layer);
+  if (layer === 0) {
+    const l1r = r - 1, l1c = c - 1;
+    if (l1r >= 0 && l1r < 2 && l1c >= 0 && l1c < 4) {
+      if (!grid[24 + l1r * 4 + l1c].removed) return true;
+    }
+    const l2r = r - 2, l2c = c - 2;
+    if (l2r >= 0 && l2r < 1 && l2c >= 0 && l2c < 2) {
+      if (!grid[32 + l2r * 2 + l2c].removed) return true;
+    }
+  } else if (layer === 1) {
+    const l2r = r, l2c = c;
+    if (l2r >= 0 && l2r < 1 && l2c >= 0 && l2c < 2) {
+      if (!grid[32 + l2r * 2 + l2c].removed) return true;
+    }
+  }
+  return false;
+}
 
 let difficulty = 'easy';
 let numTypes = 4;
@@ -610,9 +645,9 @@ function initGame() {
   processing = false;
 
   // Build grid for stacked layout
-  const L0 = BOARD_LAYERS[0].rows * BOARD_LAYERS[0].cols; // 24
-  const L1 = BOARD_LAYERS[1].rows * BOARD_LAYERS[1].cols; // 8
-  const L2 = BOARD_LAYERS[2].rows * BOARD_LAYERS[2].cols; // 2
+  const L0 = BOARD_LAYOUT.L0.rows * BOARD_LAYOUT.L0.cols; // 24
+  const L1 = BOARD_LAYOUT.L1.rows * BOARD_LAYOUT.L1.cols; // 8
+  const L2 = BOARD_LAYOUT.L2.rows * BOARD_LAYOUT.L2.cols; // 2
   const totalTiles = L0 + L1 + L2; // 34
 
   // Make types appear in multiples of 3
@@ -640,138 +675,75 @@ function initGame() {
 // === RENDER ===
 function renderBoard() {
   boardEl.innerHTML = '';
-
-  const BOARD_W = 330;
-  const BOARD_H = 300;
   const GAP = 3;
 
-  // Layer configs: {rows, cols, offsetX, offsetY, tileW, tileH, baseZ}
   let tileIdx = 0;
-  for (let li = 0; li < BOARD_LAYERS.length; li++) {
-    const L = BOARD_LAYERS[li];
-    for (let r = 0; r < L.rows; r++) {
-      for (let c = 0; c < L.cols; c++) {
-        if (tileIdx >= grid.length) break;
-        const tile = grid[tileIdx];
-        tile.layer = li; // mark which layer
-
-        const x = L.offsetX + c * (L.tileW + GAP);
-        const y = L.offsetY + r * (L.tileH + GAP);
-        const z = L.baseZ + r;
-
-        const div = document.createElement('div');
-        div.className = 'tile type-' + tile.type;
-        div.style.left = x + 'px';
-        div.style.top = y + 'px';
-        div.style.width = L.tileW + 'px';
-        div.style.height = L.tileH + 'px';
-        div.style.zIndex = z;
-
-        // 3D transform - simpler depth effect
-        div.style.transform = `translateZ(${li * 6}px)`;
-
-        if (tile.removed) {
-          div.style.visibility = 'hidden';
-          div.style.pointerEvents = 'none';
-        } else {
-          div.textContent = TILE_ICONS[tile.type];
-          div.dataset.idx = tileIdx;
-
-          // Check if blocked by upper layer
-          const blocked = checkBlockedByUpper(tileIdx, li, r, c);
-          if (blocked) div.classList.add('blocked');
-
-          div.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            if (processing || this.classList.contains('blocked')) return;
-            onTileClickIdx(parseInt(this.dataset.idx));
-          }, {passive: false});
-          div.addEventListener('click', function(e) {
-            if (processing || this.classList.contains('blocked')) return;
-            onTileClickIdx(parseInt(this.dataset.idx));
-          });
-        }
-        boardEl.appendChild(div);
-        tileIdx++;
-      }
+  
+  // Layer 0: 4 rows x 6 cols = 24 tiles
+  const L0 = BOARD_LAYOUT.L0;
+  for (let r = 0; r < L0.rows; r++) {
+    for (let c = 0; c < L0.cols; c++) {
+      if (tileIdx >= grid.length) break;
+      grid[tileIdx].layer = 0;
+      renderTile(tileIdx, L0.offsetX + c * (L0.tileW + GAP), L0.offsetY + r * (L0.tileH + GAP), L0.tileW, L0.tileH, L0.baseZ + r);
+      tileIdx++;
     }
   }
-
-  // Set board height
-  boardEl.style.height = BOARD_H + 'px';
-}
-
-function checkBlockedByUpper(idx, layer, r, c) {
-  if (layer === 2) return false; // top layer never blocked
-
-  let upperStart = 0;
-  for (let li = 0; li < layer; li++) {
-    upperStart += BOARD_LAYERS[li].rows * BOARD_LAYERS[li].cols;
-  }
-
-  if (layer === 1) {
-    // Layer 1 is blocked by layer 2
-    const l2 = BOARD_LAYERS[2];
-    const l2r = r; // l2 has 1 row
-    const l2c = c; // l2 has 2 cols
-    if (l2r >= 0 && l2r < l2.rows && l2c >= 0 && l2c < l2.cols) {
-      const upperIdx = upperStart + l2r * l2.cols + l2c;
-      if (upperIdx < grid.length && !grid[upperIdx].removed) return true;
-    }
-  } else if (layer === 0) {
-    // Layer 0 blocked by layer 1 and layer 2
-    const l1 = BOARD_LAYERS[1];
-    const l1r = r; // l1 has 2 rows
-    const l1c = c; // l1 has 4 cols
-    if (l1r >= 0 && l1r < l1.rows && l1c >= 0 && l1c < l1.cols) {
-      const upperIdx = upperStart + l1r * l1.cols + l1c;
-      if (upperIdx < grid.length && !grid[upperIdx].removed) return true;
-    }
-    // Also layer 2
-    const l2 = BOARD_LAYERS[2];
-    const l2r = r;
-    const l2c = c;
-    if (l2r >= 0 && l2r < l2.rows && l2c >= 0 && l2c < l2.cols) {
-      const upperIdx = upperStart + l1.rows * l1.cols + l2r * l2.cols + l2c;
-      if (upperIdx < grid.length && !grid[upperIdx].removed) return true;
+  
+  // Layer 1: 2 rows x 4 cols = 8 tiles
+  const L1 = BOARD_LAYOUT.L1;
+  for (let r = 0; r < L1.rows; r++) {
+    for (let c = 0; c < L1.cols; c++) {
+      if (tileIdx >= grid.length) break;
+      grid[tileIdx].layer = 1;
+      renderTile(tileIdx, L1.offsetX + c * (L1.tileW + GAP), L1.offsetY + r * (L1.tileH + GAP), L1.tileW, L1.tileH, L1.baseZ + r);
+      tileIdx++;
     }
   }
-  return false;
-}
-
-function renderSlots() {
-  for (let i = 0; i < TOTAL_SLOTS; i++) {
-    const slot = document.getElementById('slot' + i);
-    slot.innerHTML = '';
-    slot.className = 'slot';
-    if (i < slots.length) {
-      slot.textContent = TILE_ICONS[slots[i]];
-      slot.classList.add('filled', 'type-' + slots[i]);
-    }
-  }
-  // Warning when slots >= 6
-  for (let i = 0; i < TOTAL_SLOTS; i++) {
-    const slot = document.getElementById('slot' + i);
-    if (i >= 6 && i < slots.length) {
-      slot.classList.add('warning');
-    } else {
-      slot.classList.remove('warning');
+  
+  // Layer 2: 1 row x 2 cols = 2 tiles
+  const L2 = BOARD_LAYOUT.L2;
+  for (let r = 0; r < L2.rows; r++) {
+    for (let c = 0; c < L2.cols; c++) {
+      if (tileIdx >= grid.length) break;
+      grid[tileIdx].layer = 2;
+      renderTile(tileIdx, L2.offsetX + c * (L2.tileW + GAP), L2.offsetY + r * (L2.tileH + GAP), L2.tileW, L2.tileH, L2.baseZ + r);
+      tileIdx++;
     }
   }
 }
 
-function updateTilesLeft() {
-  const left = grid.filter(t => !t.removed).length;
-  document.getElementById('tilesLeft').textContent = 'Tiles: ' + left;
+function renderTile(idx, x, y, w, h, z) {
+  const tile = grid[idx];
+  const div = document.createElement('div');
+  div.className = 'tile type-' + tile.type;
+  div.style.left = x + 'px';
+  div.style.top = y + 'px';
+  div.style.width = w + 'px';
+  div.style.height = h + 'px';
+  div.style.zIndex = z;
+  div.style.transform = 'translateZ(' + (z * 0.5) + 'px)';
+
+  if (tile.removed) {
+    div.style.visibility = 'hidden';
+    div.style.pointerEvents = 'none';
+  } else {
+    div.textContent = TILE_ICONS[tile.type];
+    div.dataset.idx = idx;
+    if (isTileBlocked(idx)) div.classList.add('blocked');
+    div.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      if (processing || this.classList.contains('blocked')) return;
+      onTileClickIdx(parseInt(this.dataset.idx));
+    }, {passive: false});
+    div.addEventListener('click', function(e) {
+      if (processing || this.classList.contains('blocked')) return;
+      onTileClickIdx(parseInt(this.dataset.idx));
+    });
+  }
+  boardEl.appendChild(div);
 }
 
-function updatePowers() {
-  document.getElementById('undoCount').textContent = powers.undo + '/3';
-  document.getElementById('hintCount').textContent = powers.hint + '/3';
-  document.getElementById('shuffleCount').textContent = powers.shuffle + '/3';
-}
-
-// === GAME LOGIC ===
 function onTileClickIdx(idx) {
   const msg = 'click:' + idx + ' proc:' + processing + ' rem:' + grid[idx].removed + ' slot:' + slots.length;
   // debug: document.getElementById('tilesLeft').textContent = msg;
@@ -873,22 +845,13 @@ function showModal(win) {
 
 function getAvailableTiles() {
   const available = [];
-  let tileIdx = 0;
-  for (let li = 0; li < BOARD_LAYERS.length; li++) {
-    const L = BOARD_LAYERS[li];
-    for (let r = 0; r < L.rows; r++) {
-      for (let c = 0; c < L.cols; c++) {
-        if (tileIdx >= grid.length) break;
-        if (!grid[tileIdx].removed && !checkBlockedByUpper(tileIdx, li, r, c)) {
-          available.push(tileIdx);
-        }
-        tileIdx++;
-      }
+  for (let i = 0; i < grid.length; i++) {
+    if (!grid[i].removed && !isTileBlocked(i)) {
+      available.push(i);
     }
   }
   return available;
 }
-
 // === POWERS ===
 function doUndo() {
   if (powers.undo <= 0 || undoStack.length === 0) { nekoSay('No undo!'); return; }
