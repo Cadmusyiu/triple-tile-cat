@@ -6,14 +6,13 @@
 <title>Triple Tile - Neko Match</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
+body { 
+  background: linear-gradient(135deg, #1a1a2e, #16213e); 
+  min-height: 100vh; 
+  display: flex; 
+  justify-content: center; 
   align-items: center;
   font-family: Arial, sans-serif;
-  overflow: hidden;
 }
 #landing, #game {
   width: 360px;
@@ -23,8 +22,6 @@ body {
   align-items: center;
   padding: 20px;
 }
-
-/* === LANDING === */
 #landing {
   background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%);
   position: relative;
@@ -40,23 +37,16 @@ body {
 .cherry:nth-child(2) { top: 20%; right: 15%; animation-delay: 0.5s; }
 .cherry:nth-child(3) { bottom: 30%; left: 8%; animation-delay: 1s; }
 .cherry:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 1.5s; }
-.cherry:nth-child(5) { top: 40%; left: 5%; animation-delay: 2s; }
-.cherry:nth-child(6) { top: 60%; right: 5%; animation-delay: 0.3s; }
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-15px) rotate(10deg); }
 }
-.cat-container {
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
+.cat-container { margin-top: 40px; margin-bottom: 20px; }
 .cat-body {
-  width: 160px;
-  height: 140px;
+  width: 160px; height: 140px;
   background: #1a1a1a;
   border-radius: 50% 50% 45% 45%;
-  position: relative;
-  margin: 0 auto;
+  position: relative; margin: 0 auto;
   animation: catBounce 2s ease-in-out infinite;
 }
 @keyframes catBounce {
@@ -64,392 +54,100 @@ body {
   50% { transform: translateY(-8px); }
 }
 .cat-head {
-  width: 130px;
-  height: 110px;
+  width: 130px; height: 110px;
   background: #1a1a1a;
   border-radius: 50%;
-  position: absolute;
-  top: -30px;
-  left: 50%;
+  position: absolute; top: -30px; left: 50%;
   transform: translateX(-50%);
 }
-/* Ears */
-.cat-ear {
-  width: 0; height: 0;
-  border-left: 22px solid transparent;
-  border-right: 22px solid transparent;
-  border-bottom: 38px solid #1a1a1a;
-  position: absolute;
-  top: -15px;
-}
+.cat-ear { width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-bottom: 38px solid #1a1a1a; position: absolute; top: -15px; }
 .cat-ear.left { left: 8px; transform: rotate(-15deg); }
 .cat-ear.right { right: 8px; transform: rotate(15deg); }
-/* Inner ears */
-.cat-ear-inner {
-  width: 0; height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 18px solid #ffb6c1;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-/* Eyes */
-.cat-eyes {
-  position: absolute;
-  top: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 28px;
-}
-.cat-eye {
-  width: 22px;
-  height: 28px;
-  background: #ffd700;
-  border-radius: 50%;
-  position: relative;
-  animation: catBlink 4s ease-in-out infinite;
-}
-.cat-eye::after {
-  content: '';
-  width: 10px;
-  height: 14px;
-  background: #1a1a1a;
-  border-radius: 50%;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-@keyframes catBlink {
-  0%, 45%, 55%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(0.1); }
-}
-/* Nose & mouth */
-.cat-nose {
-  width: 14px; height: 10px;
-  background: #ff6b9d;
-  border-radius: 50% 50% 40% 40%;
-  position: absolute;
-  top: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.cat-mouth {
-  position: absolute;
-  top: 78px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 15px;
-  border-bottom: 3px solid #555;
-  border-left: 3px solid #555;
-  border-right: 3px solid #555;
-  border-radius: 0 0 50% 50%;
-}
-/* Whiskers */
-.whisker {
-  position: absolute;
-  top: 68px;
-  width: 35px;
-  height: 2px;
-  background: #555;
-}
+.cat-ear-inner { width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 18px solid #ffb6c1; position: absolute; top: 5px; left: 50%; transform: translateX(-50%); }
+.cat-eyes { position: absolute; top: 35px; left: 50%; transform: translateX(-50%); display: flex; gap: 28px; }
+.cat-eye { width: 22px; height: 28px; background: #ffd700; border-radius: 50%; position: relative; animation: catBlink 4s ease-in-out infinite; }
+.cat-eye::after { content: ''; width: 10px; height: 14px; background: #1a1a1a; border-radius: 50%; position: absolute; top: 5px; left: 50%; transform: translateX(-50%); }
+@keyframes catBlink { 0%, 45%, 55%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.1); } }
+.cat-nose { width: 14px; height: 10px; background: #ff6b9d; border-radius: 50% 50% 40% 40%; position: absolute; top: 70px; left: 50%; transform: translateX(-50%); }
+.cat-mouth { position: absolute; top: 78px; left: 50%; transform: translateX(-50%); width: 30px; height: 15px; border-bottom: 3px solid #555; border-left: 3px solid #555; border-right: 3px solid #555; border-radius: 0 0 50% 50%; }
+.whisker { position: absolute; top: 68px; width: 35px; height: 2px; background: #555; }
 .whisker.left { left: -25px; transform: rotate(-10deg); }
 .whisker.right { right: -25px; transform: rotate(10deg); }
-/* Fat belly */
-.cat-belly {
-  width: 90px;
-  height: 50px;
-  background: #2d2d2d;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.cat-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #ff6b6b;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  margin-bottom: 5px;
-}
-.cat-subtitle {
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 30px;
-}
-.diff-label {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.diff-btn {
-  width: 200px;
-  padding: 14px;
-  margin: 6px 0;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+.cat-belly { width: 90px; height: 50px; background: #2d2d2d; border-radius: 50%; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); }
+.cat-title { font-size: 28px; font-weight: bold; color: #ff6b6b; text-shadow: 0 2px 10px rgba(0,0,0,0.2); margin-bottom: 5px; }
+.cat-subtitle { font-size: 14px; color: #888; margin-bottom: 30px; }
+.diff-label { color: #555; font-size: 14px; margin-bottom: 10px; font-weight: bold; }
+.diff-btn { width: 200px; padding: 14px; margin: 6px 0; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
 .diff-btn:hover { transform: scale(1.05); }
 .diff-btn.easy { background: linear-gradient(135deg, #55efc4, #00b894); color: white; }
 .diff-btn.normal { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); color: #555; }
 .diff-btn.hard { background: linear-gradient(135deg, #ff6b6b, #d63031); color: white; }
-
-/* === GAME === */
-#game {
-  background: linear-gradient(180deg, #1e3a5f, #152238);
-  display: none;
-  padding: 10px;
-}
+#game { background: linear-gradient(180deg, #1e3a5f, #152238); display: none; padding: 10px; }
 #game.show { display: flex; }
-.game-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 5px;
-}
-.header-btn {
-  width: 40px; height: 40px;
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.1);
-  color: white;
-}
-#tilesLeft {
-  color: #ffd700;
-  font-size: 16px;
-  font-weight: bold;
-}
+.game-header { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 8px 5px; }
+.header-btn { width: 40px; height: 40px; border: none; border-radius: 10px; font-size: 18px; cursor: pointer; background: rgba(255,255,255,0.1); color: white; }
+#tilesLeft { color: #ffd700; font-size: 16px; font-weight: bold; }
 #board {
-  width: 340px;
-  height: 280px;
-  position: relative;
-  perspective: 600px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  padding: 8px;
   flex: 1;
-  margin: 5px 0;
-  transform-style: preserve-3d;
-  overflow: hidden;
 }
 .tile {
-  position: absolute;
-  border-radius: 12px;
+  aspect-ratio: 1;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 28px;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.15s, opacity 0.2s, box-shadow 0.15s;
-  transform-style: preserve-3d;
-  border: 2px solid rgba(255,255,255,0.3);
+  transition: transform 0.15s, opacity 0.15s;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
-.tile:active:not(.blocked) { transform: scale(0.88) translateZ(0px) !important; }
-.tile:not(.blocked) { cursor: pointer; }
-.tile.blocked { cursor: not-allowed; }
-.tile.blocked {
-  opacity: 0.3;
-  cursor: not-allowed;
-  filter: grayscale(0.6) brightness(0.7);
-}
-.tile.selected {
-  transform: scale(1.12) translateZ(10px) !important;
-  box-shadow: 0 0 25px rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.5);
-  z-index: 200 !important;
-  border-color: #ffd700;
-}
-.tile.matched {
-  animation: tilePop 0.35s forwards;
-}
-@keyframes tilePop {
-  0% { transform: scale(1) translateZ(0); opacity: 1; }
-  40% { transform: scale(1.35) translateZ(20px); opacity: 0.6; }
-  100% { transform: scale(0) translateZ(30px); opacity: 0; }
-}
-.tile.hint-glow {
-  box-shadow: 0 0 0 4px #ffd700, 0 0 25px #ffd700;
-  animation: hintPulse 0.8s ease infinite;
-}
-@keyframes hintPulse {
-  0%, 100% { box-shadow: 0 0 0 4px #ffd700, 0 0 25px #ffd700; }
-  50% { box-shadow: 0 0 0 6px #ffd700, 0 0 40px #ffd700; }
-}
-#slots {
-  display: flex;
-  gap: 5px;
-  padding: 10px 5px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 12px;
-  margin: 5px 0;
-  width: 100%;
-  justify-content: center;
-}
-.tile-in-slot {
-  width: 44px;
-  height: 44px;
-  font-size: 28px;
-  border-radius: 10px;
-  border: 2px solid rgba(255,255,255,0.3);
-  animation: slotIn 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-@keyframes slotIn {
-  0% { transform: scale(0) rotate(-20deg); }
-  100% { transform: scale(1) rotate(0); }
-}
-.slot {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.08);
-  border: 2px dashed rgba(255,255,255,0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
-  position: relative;
-}
+.tile:active { transform: scale(0.92); }
+.tile.hidden { visibility: hidden; pointer-events: none; }
+.tile.hint-glow { box-shadow: 0 0 0 4px #ffd700, 0 0 20px #ffd700; }
+.type-0 { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+.type-1 { background: linear-gradient(135deg, #ff6b6b, #d63031); }
+.type-2 { background: linear-gradient(135deg, #55efc4, #00b894); }
+.type-3 { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
+.type-4 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+.type-5 { background: linear-gradient(135deg, #fd79a8, #e84393); }
+.type-6 { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+.type-7 { background: linear-gradient(135deg, #81ecec, #00cec9); }
+#slots { display: flex; gap: 5px; padding: 10px 5px; background: rgba(0,0,0,0.4); border-radius: 12px; margin: 5px 0; width: 100%; justify-content: center; }
+.slot { width: 44px; height: 44px; border-radius: 10px; background: rgba(255,255,255,0.08); border: 2px dashed rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; font-size: 28px; }
 .slot.filled { border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); }
 .slot.warning { border-color: #ff6b6b; animation: slotWarn 0.5s ease infinite; }
-@keyframes slotWarn {
-  0%, 100% { border-color: #ff6b6b; }
-  50% { border-color: #ff6b6b66; }
-}
-
-
-
-#powers {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  justify-content: center;
-  padding: 8px 0;
-}
-.power-btn {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  transition: transform 0.2s;
-}
+@keyframes slotWarn { 0%, 100% { border-color: #ff6b6b; } 50% { border-color: #ff6b6b66; } }
+#powers { display: flex; gap: 10px; width: 100%; justify-content: center; padding: 8px 0; }
+.power-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: transform 0.2s; }
 .power-btn:hover { transform: scale(1.03); }
-.power-btn:active { transform: scale(0.97); }
 .power-btn.undo { background: linear-gradient(135deg, #55efc4, #00b894); color: white; }
 .power-btn.hint { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); color: #555; }
 .power-btn.shuffle { background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; }
 .power-icon { font-size: 20px; }
 .power-count { font-size: 11px; opacity: 0.8; }
-
-#neko {
-  text-align: center;
-  padding: 8px 0;
-  position: relative;
-  width: 100%;
-}
-#nekoMsg {
-  display: inline-block;
-  background: #ff6b9d;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: bold;
-  position: relative;
-  animation: msgPop 0.3s ease;
-}
-#nekoMsg::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid #ff6b9d;
-}
-@keyframes msgPop {
-  0% { transform: scale(0); }
-  80% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-.neko-mini {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 5px;
-}
-
-/* Modal */
-#modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 200;
-}
+#neko { text-align: center; padding: 8px 0; width: 100%; }
+#nekoMsg { display: inline-block; background: #ff6b9d; color: white; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; position: relative; animation: msgPop 0.3s ease; }
+#nekoMsg::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #ff6b9d; }
+@keyframes msgPop { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.neko-mini { width: 50px; height: 50px; margin: 0 auto 5px; }
+#modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 200; }
 #modal.show { display: flex; }
-.modal-box {
-  background: white;
-  border-radius: 20px;
-  padding: 30px;
-  text-align: center;
-  min-width: 280px;
-  animation: modalIn 0.3s ease;
-}
-@keyframes modalIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
+.modal-box { background: white; border-radius: 20px; padding: 30px; text-align: center; min-width: 280px; animation: modalIn 0.3s ease; }
+@keyframes modalIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 .modal-box h2 { font-size: 26px; margin-bottom: 10px; }
 .modal-box p { color: #888; margin-bottom: 20px; font-size: 14px; }
-.modal-btn {
-  padding: 12px 30px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  color: white;
-  margin: 5px;
-}
+.modal-btn { padding: 12px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; margin: 5px; }
 .modal-btn.retry { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
 .modal-btn.home { background: linear-gradient(135deg, #74b9ff, #0984e3); }
-
-/* Tile type colors */
-.tile.type-0 { background: linear-gradient(135deg, #74b9ff, #0984e3); }
-.tile.type-1 { background: linear-gradient(135deg, #ff6b6b, #d63031); }
-.tile.type-2 { background: linear-gradient(135deg, #55efc4, #00b894); }
-.tile.type-3 { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
-.tile.type-4 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
-.tile.type-5 { background: linear-gradient(135deg, #fd79a8, #e84393); }
-.tile.type-6 { background: linear-gradient(135deg, #fdcb6e, #e17055); }
-.tile.type-7 { background: linear-gradient(135deg, #81ecec, #00cec9); }
 </style>
 </head>
 <body>
-
-<!-- LANDING PAGE -->
 <div id="landing">
   <div class="cherry">🌸</div>
   <div class="cherry">🌸</div>
@@ -457,16 +155,12 @@ body {
   <div class="cherry">🌿</div>
   <div class="cherry">🌸</div>
   <div class="cherry">🌿</div>
-
   <div class="cat-container">
     <div class="cat-body">
       <div class="cat-head">
         <div class="cat-ear left"><div class="cat-ear-inner"></div></div>
         <div class="cat-ear right"><div class="cat-ear-inner"></div></div>
-        <div class="cat-eyes">
-          <div class="cat-eye"></div>
-          <div class="cat-eye"></div>
-        </div>
+        <div class="cat-eyes"><div class="cat-eye"></div><div class="cat-eye"></div></div>
         <div class="cat-nose"></div>
         <div class="cat-mouth"></div>
         <div class="whisker left"></div>
@@ -475,26 +169,20 @@ body {
       <div class="cat-belly"></div>
     </div>
   </div>
-
   <div class="cat-title">Neko Match</div>
   <div class="cat-subtitle">Match 3 tiles to clear!</div>
-
   <div class="diff-label">Select Difficulty</div>
   <button class="diff-btn easy" onclick="startGame('easy')">Easy · 4 Types</button>
   <button class="diff-btn normal" onclick="startGame('normal')">Normal · 6 Types</button>
   <button class="diff-btn hard" onclick="startGame('hard')">Hard · 8 Types</button>
 </div>
-
-<!-- GAME PAGE -->
 <div id="game">
   <div class="game-header">
     <button class="header-btn" onclick="goHome()">🏠</button>
     <div id="tilesLeft">Tiles: 0</div>
     <button class="header-btn" onclick="restartGame()">🔄</button>
   </div>
-
   <div id="board"></div>
-
   <div id="slots">
     <div class="slot" id="slot0"></div>
     <div class="slot" id="slot1"></div>
@@ -505,34 +193,23 @@ body {
     <div class="slot" id="slot6"></div>
     <div class="slot" id="slot7"></div>
   </div>
-
   <div id="powers">
     <button class="power-btn undo" onclick="doUndo()">
-      <span class="power-icon">↩</span>
-      <span>Undo</span>
-      <span class="power-count" id="undoCount">3/3</span>
+      <span class="power-icon">↩</span><span>Undo</span><span class="power-count" id="undoCount">3/3</span>
     </button>
     <button class="power-btn hint" onclick="doHint()">
-      <span class="power-icon">💡</span>
-      <span>Hint</span>
-      <span class="power-count" id="hintCount">3/3</span>
+      <span class="power-icon">💡</span><span>Hint</span><span class="power-count" id="hintCount">3/3</span>
     </button>
     <button class="power-btn shuffle" onclick="doShuffle()">
-      <span class="power-icon">🔀</span>
-      <span>Shuffle</span>
-      <span class="power-count" id="shuffleCount">3/3</span>
+      <span class="power-icon">🔀</span><span>Shuffle</span><span class="power-count" id="shuffleCount">3/3</span>
     </button>
   </div>
-
   <div id="neko">
     <div class="cat-body neko-mini">
       <div class="cat-head">
         <div class="cat-ear left"><div class="cat-ear-inner"></div></div>
         <div class="cat-ear right"><div class="cat-ear-inner"></div></div>
-        <div class="cat-eyes">
-          <div class="cat-eye"></div>
-          <div class="cat-eye"></div>
-        </div>
+        <div class="cat-eyes"><div class="cat-eye"></div><div class="cat-eye"></div></div>
         <div class="cat-nose"></div>
         <div class="cat-mouth"></div>
         <div class="whisker left"></div>
@@ -543,8 +220,6 @@ body {
     <div id="nekoMsg">Let's match!</div>
   </div>
 </div>
-
-<!-- MODAL -->
 <div id="modal">
   <div class="modal-box">
     <h2 id="modalTitle">Game Over</h2>
@@ -553,32 +228,16 @@ body {
     <button class="modal-btn home" onclick="goHome()">Home</button>
   </div>
 </div>
-
 <script>
-// === GAME CONFIG ===
 const TILE_ICONS = ['🐟','🍖','🍣','🦐','🍰','🍎','🌸','⭐'];
 const DIFFICULTY = { easy: 4, normal: 6, hard: 8 };
-const GRID_COLS = 6;
+const TOTAL_TILES = 24;
 const TOTAL_SLOTS = 8;
-const POWERS = { undo: 3, hint: 3, shuffle: 3 };
-
-// Simple flat board: 6 cols x 4 rows = 24 tiles, no blocking
-const BOARD_W = 340;
-const TILE_W = 50;
-const TILE_H = 50;
-const GAP = 6;
-const COLS = 6;
-const ROWS = 4;
-const TOTAL_TILES = 24; // exactly divisible by 3 for easy matching
-
-function isTileBlocked(idx) {
-  return false; // No blocking in simple version - all tiles clickable
-}
 
 let difficulty = 'easy';
 let numTypes = 4;
-let grid = []; // {type, removed}
-let slots = []; // tile types in slots
+let grid = [];
+let slots = [];
 let undoStack = [];
 let powers = { undo: 3, hint: 3, shuffle: 3 };
 let hintedTiles = [];
@@ -587,7 +246,6 @@ let processing = false;
 const boardEl = document.getElementById('board');
 const nekoMsgEl = document.getElementById('nekoMsg');
 
-// === ENTRY ===
 function startGame(diff) {
   difficulty = diff;
   numTypes = DIFFICULTY[diff];
@@ -607,26 +265,20 @@ function restartGame() {
   initGame();
 }
 
-// === INIT ===
 function initGame() {
   slots = [];
   undoStack = [];
   powers = { undo: 3, hint: 3, shuffle: 3 };
   hintedTiles = [];
   processing = false;
-
-  // Simple flat grid: 6x4 = 24 tiles
   grid = [];
   for (let i = 0; i < TOTAL_TILES; i++) {
     grid.push({ type: i % numTypes, removed: false });
   }
-
-  // Shuffle
   for (let i = grid.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [grid[i], grid[j]] = [grid[j], grid[i]];
   }
-
   updatePowers();
   renderBoard();
   renderSlots();
@@ -634,98 +286,89 @@ function initGame() {
   nekoSay('Match 3 to clear!');
 }
 
-// === RENDER ===
 function renderBoard() {
   boardEl.innerHTML = '';
-  const offsetX = (BOARD_W - (COLS * TILE_W + (COLS - 1) * GAP)) / 2;
-  
-  const offsetY = 15;
-
   for (let idx = 0; idx < grid.length; idx++) {
-    const r = Math.floor(idx / COLS);
-    const c = idx % COLS;
-    const x = offsetX + c * (TILE_W + GAP);
-    const y = offsetY + r * (TILE_H + GAP);
-    renderTile(idx, x, y, TILE_W, TILE_H, r * 2);
+    const tile = grid[idx];
+    const div = document.createElement('div');
+    div.className = 'tile type-' + tile.type;
+    div.dataset.idx = idx;
+    if (tile.removed) {
+      div.classList.add('hidden');
+    } else {
+      div.textContent = TILE_ICONS[tile.type];
+      div.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        if (processing) return;
+        onTileClickIdx(parseInt(this.dataset.idx));
+      }, {passive: false});
+      div.addEventListener('click', function(e) {
+        if (processing) return;
+        onTileClickIdx(parseInt(this.dataset.idx));
+      });
+    }
+    boardEl.appendChild(div);
   }
 }
 
-function renderTile(idx, x, y, w, h, z) {
-  const tile = grid[idx];
-  const div = document.createElement('div');
-  div.className = 'tile type-' + tile.type;
-  div.style.left = x + 'px';
-  div.style.top = y + 'px';
-  div.style.width = w + 'px';
-  div.style.height = h + 'px';
-  div.style.zIndex = z;
-  div.style.transform = 'translateZ(' + (z * 0.5) + 'px)';
-
-  if (tile.removed) {
-    div.style.visibility = 'hidden';
-    div.style.pointerEvents = 'none';
-  } else {
-    div.textContent = TILE_ICONS[tile.type];
-    div.dataset.idx = idx;
-    if (isTileBlocked(idx)) div.classList.add('blocked');
-    div.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      if (processing || this.classList.contains('blocked')) return;
-      onTileClickIdx(parseInt(this.dataset.idx));
-    }, {passive: false});
-    div.addEventListener('click', function(e) {
-      if (processing || this.classList.contains('blocked')) return;
-      onTileClickIdx(parseInt(this.dataset.idx));
-    });
+function renderSlots() {
+  for (let i = 0; i < TOTAL_SLOTS; i++) {
+    const slot = document.getElementById('slot' + i);
+    slot.innerHTML = '';
+    slot.className = 'slot';
+    if (i < slots.length) {
+      slot.textContent = TILE_ICONS[slots[i]];
+      slot.classList.add('filled', 'type-' + slots[i]);
+    }
   }
-  boardEl.appendChild(div);
+  for (let i = 0; i < TOTAL_SLOTS; i++) {
+    const slot = document.getElementById('slot' + i);
+    if (i >= 6 && i < slots.length) {
+      slot.classList.add('warning');
+    } else {
+      slot.classList.remove('warning');
+    }
+  }
+}
+
+function updateTilesLeft() {
+  document.getElementById('tilesLeft').textContent = 'Tiles: ' + grid.filter(t => !t.removed).length;
+}
+
+function updatePowers() {
+  document.getElementById('undoCount').textContent = powers.undo + '/3';
+  document.getElementById('hintCount').textContent = powers.hint + '/3';
+  document.getElementById('shuffleCount').textContent = powers.shuffle + '/3';
 }
 
 function onTileClickIdx(idx) {
-  const msg = 'click:' + idx + ' proc:' + processing + ' rem:' + grid[idx].removed + ' slot:' + slots.length;
-  // debug: document.getElementById('tilesLeft').textContent = msg;
-  if (processing) { nekoSay('Wait...'); return; }
-  if (grid[idx].removed) { nekoSay('Already gone!'); return; }
-  if (slots.length >= TOTAL_SLOTS) { nekoSay('Slots full!'); return; }
-
-  // Save state for undo
+  if (processing) return;
+  if (grid[idx].removed) return;
+  if (slots.length >= TOTAL_SLOTS) return;
   undoStack.push({ slots: [...slots], grid: grid.map(t => ({ ...t })) });
   if (undoStack.length > 10) undoStack.shift();
-
-  // Add to slot
   slots.push(grid[idx].type);
   grid[idx].removed = true;
   clearHint();
-
   renderBoard();
   renderSlots();
   updateTilesLeft();
-
-  // Check match
   checkMatch();
 }
 
 function checkMatch() {
-  console.log('checkMatch: slots=' + JSON.stringify(slots) + ' processing=' + processing);
   const count = {};
   for (const t of slots) count[t] = (count[t] || 0) + 1;
-
   let matched = null;
   for (const [t, n] of Object.entries(count)) {
     if (n >= 3) { matched = parseInt(t); break; }
   }
-
   if (matched !== null) {
     processing = true;
-    nekoSay('Nice! +50');
-    // Remove 3 of matched type
+    nekoSay('Nice!');
     let removed = 0;
     for (let i = 0; i < slots.length && removed < 3; i++) {
-      if (slots[i] === matched) {
-        slots.splice(i, 1);
-        removed++;
-        i--;
-      }
+      if (slots[i] === matched) { slots.splice(i, 1); removed++; i--; }
     }
     setTimeout(() => {
       renderSlots();
@@ -733,7 +376,6 @@ function checkMatch() {
       if (slots.length >= TOTAL_SLOTS) {
         checkGameOver();
       } else {
-        // Keep checking for chain matches
         checkMatch();
       }
     }, 300);
@@ -742,19 +384,9 @@ function checkMatch() {
   } else if (grid.filter(t => !t.removed).length === 0) {
     showWin();
   } else {
-    processing = false; // ALWAYS reset processing when done
-    // Check if any moves possible
-    const available = getAvailableTiles();
-    if (available.length === 0 && slots.length < TOTAL_SLOTS) {
-      // Auto shuffle
-      nekoSay('No moves! Shuffle...');
-      setTimeout(() => autoShuffle(), 800);
-    } else if (slots.length >= 6) {
-      nekoSay('Careful!');
-    } else {
-      const msgs = ['Go!', 'Match!', 'You got this!', 'Purrfect!', 'Meow~'];
-      nekoSay(msgs[Math.floor(Math.random() * msgs.length)]);
-    }
+    processing = false;
+    const msgs = ['Go!', 'Match!', 'You got this!', 'Purrfect!', 'Meow~'];
+    nekoSay(msgs[Math.floor(Math.random() * msgs.length)]);
   }
 }
 
@@ -781,15 +413,9 @@ function showModal(win) {
 }
 
 function getAvailableTiles() {
-  const available = [];
-  for (let i = 0; i < grid.length; i++) {
-    if (!grid[i].removed && !isTileBlocked(i)) {
-      available.push(i);
-    }
-  }
-  return available;
+  return grid.map((t, i) => ({ t, i })).filter(x => !x.t.removed).map(x => x.i);
 }
-// === POWERS ===
+
 function doUndo() {
   if (powers.undo <= 0 || undoStack.length === 0) { nekoSay('No undo!'); return; }
   powers.undo--;
@@ -807,37 +433,22 @@ function doHint() {
   if (powers.hint <= 0) { nekoSay('No hints!'); return; }
   const avail = getAvailableTiles();
   if (avail.length === 0) return;
-
-  // Find a type that exists in both available tiles and slots (or can be matched)
-  const typeCount = {};
-  for (const idx of avail) typeCount[grid[idx].type] = (typeCount[grid[idx].type] || 0) + 1;
-
-  let hintType = -1;
-  // Prefer tiles already in slots
-  for (const t of slots) {
-    if (typeCount[t]) { hintType = t; break; }
-  }
-  // Or any tile with 2+ on board
-  if (hintType === -1) {
-    for (const [t, n] of Object.entries(typeCount)) {
-      if (n >= 2) { hintType = parseInt(t); break; }
-    }
-  }
-  // Or any available
-  if (hintType === -1) hintType = grid[avail[0]].type;
-
   powers.hint--;
   updatePowers();
   clearHint();
-
-  // Highlight tiles of hint type
-  for (const idx of avail) {
-    if (grid[idx].type === hintType) {
-      const el = boardEl.querySelector(`[data-idx="${idx}"]`);
-      if (el) {
-        el.classList.add('hint-glow');
-        hintedTiles.push(el);
-      }
+  const availTypes = avail.map(i => grid[i].type);
+  const count = {};
+  for (const t of availTypes) count[t] = (count[t] || 0) + 1;
+  let hintType = -1;
+  for (const t of slots) { if (count[t]) { hintType = t; break; } }
+  if (hintType === -1) {
+    for (const [t, n] of Object.entries(count)) { if (n >= 2) { hintType = parseInt(t); break; } }
+  }
+  if (hintType === -1) hintType = availTypes[0];
+  for (const i of avail) {
+    if (grid[i].type === hintType) {
+      boardEl.children[i].classList.add('hint-glow');
+      hintedTiles.push(boardEl.children[i]);
     }
   }
   nekoSay('Try here!');
@@ -858,9 +469,8 @@ function doShuffle() {
 }
 
 function autoShuffle() {
-  // Shuffle only non-removed tiles
   const avail = getAvailableTiles();
-  const types = avail.map(idx => grid[idx].type);
+  const types = avail.map(i => grid[i].type);
   for (let i = types.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [types[i], types[j]] = [types[j], types[i]];
@@ -869,11 +479,10 @@ function autoShuffle() {
   renderBoard();
 }
 
-// === NEKO SAY ===
 function nekoSay(msg) {
   nekoMsgEl.textContent = msg;
   nekoMsgEl.style.animation = 'none';
-  nekoMsgEl.offsetHeight; // trigger reflow
+  nekoMsgEl.offsetHeight;
   nekoMsgEl.style.animation = 'msgPop 0.3s ease';
 }
 </script>
