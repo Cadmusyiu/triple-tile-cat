@@ -644,18 +644,14 @@ function initGame() {
   hintedTiles = [];
   processing = false;
 
-  // Build grid for stacked layout
+  // Build grid for stacked layout - must match BOARD_LAYOUT exactly
   const L0 = BOARD_LAYOUT.L0.rows * BOARD_LAYOUT.L0.cols; // 24
   const L1 = BOARD_LAYOUT.L1.rows * BOARD_LAYOUT.L1.cols; // 8
   const L2 = BOARD_LAYOUT.L2.rows * BOARD_LAYOUT.L2.cols; // 2
-  const totalTiles = L0 + L1 + L2; // 34
-
-  // Make types appear in multiples of 3
-  const tilesPerType = Math.ceil(totalTiles / numTypes);
-  const actualTotal = tilesPerType * numTypes;
+  const totalTiles = L0 + L1 + L2; // 34 exactly
 
   grid = [];
-  for (let i = 0; i < actualTotal; i++) {
+  for (let i = 0; i < totalTiles; i++) {
     grid.push({ type: i % numTypes, removed: false, layer: -1 });
   }
 
