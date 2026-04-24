@@ -593,7 +593,13 @@ function startGame(diff) {
   numTypes = DIFFICULTY[diff];
   document.getElementById('landing').style.display = 'none';
   document.getElementById('game').classList.add('show');
+  window.__dbg = document.getElementById('board').innerHTML;
   initGame();
+  if (grid.length === 0) {
+    document.getElementById('tilesLeft').textContent = 'GRID EMPTY! numTypes=' + numTypes + ' TOTAL_TILES=' + TOTAL_TILES;
+  } else {
+    document.getElementById('tilesLeft').textContent = 'Tiles: ' + grid.filter(t=>!t.removed).length + ' | numTypes=' + numTypes;
+  }
 }
 
 function goHome() {
@@ -638,6 +644,7 @@ function initGame() {
 function renderBoard() {
   boardEl.innerHTML = '';
   const offsetX = (BOARD_W - (COLS * TILE_W + (COLS - 1) * GAP)) / 2;
+  document.getElementById('tilesLeft').textContent = 'Rendering ' + grid.length + ' tiles...';
   const offsetY = 15;
 
   for (let idx = 0; idx < grid.length; idx++) {
