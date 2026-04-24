@@ -774,7 +774,7 @@ function updatePowers() {
 // === GAME LOGIC ===
 function onTileClickIdx(idx) {
   const msg = 'click:' + idx + ' proc:' + processing + ' rem:' + grid[idx].removed + ' slot:' + slots.length;
-  document.getElementById('tilesLeft').textContent = msg;
+  // debug: document.getElementById('tilesLeft').textContent = msg;
   if (processing) { nekoSay('Wait...'); return; }
   if (grid[idx].removed) { nekoSay('Already gone!'); return; }
   if (slots.length >= TOTAL_SLOTS) { nekoSay('Slots full!'); return; }
@@ -833,6 +833,7 @@ function checkMatch() {
   } else if (grid.filter(t => !t.removed).length === 0) {
     showWin();
   } else {
+    processing = false; // ALWAYS reset processing when done
     // Check if any moves possible
     const available = getAvailableTiles();
     if (available.length === 0 && slots.length < TOTAL_SLOTS) {
