@@ -681,9 +681,14 @@ function renderBoard() {
           const blocked = checkBlockedByUpper(tileIdx, li, r, c);
           if (blocked) div.classList.add('blocked');
 
-          div.addEventListener('click', () => {
-            if (processing || div.classList.contains('blocked')) return;
-            onTileClickIdx(tileIdx);
+          div.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (processing || this.classList.contains('blocked')) return;
+            onTileClickIdx(parseInt(this.dataset.idx));
+          }, {passive: false});
+          div.addEventListener('click', function(e) {
+            if (processing || this.classList.contains('blocked')) return;
+            onTileClickIdx(parseInt(this.dataset.idx));
           });
         }
         boardEl.appendChild(div);
@@ -768,10 +773,11 @@ function updatePowers() {
 
 // === GAME LOGIC ===
 function onTileClickIdx(idx) {
-  console.log('CLICK idx=' + idx + ' processing=' + processing + ' removed=' + grid[idx].removed + ' slots.len=' + slots.length);
-  if (processing) { console.log('BLOCKED: processing'); return; }
-  if (grid[idx].removed) { console.log('BLOCKED: already removed'); return; }
-  if (slots.length >= TOTAL_SLOTS) { console.log('BLOCKED: slots full'); return; }
+  const msg = 'click:' + idx + ' proc:' + processing + ' rem:' + grid[idx].removed + ' slot:' + slots.length;
+  document.getElementById('tilesLeft').textContent = msg;
+  if (processing) { nekoSay('Wait...'); return; }
+  if (grid[idx].removed) { nekoSay('Already gone!'); return; }
+  if (slots.length >= TOTAL_SLOTS) { nekoSay('Slots full!'); return; }
 
   // Save state for undo
   undoStack.push({ slots: [...slots], grid: grid.map(t => ({ ...t })) });
