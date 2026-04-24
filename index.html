@@ -233,13 +233,14 @@ body {
   font-weight: bold;
 }
 #board {
-  width: 100%;
-  height: 320px;
+  width: 340px;
+  height: 280px;
   position: relative;
-  perspective: 800px;
+  perspective: 600px;
   flex: 1;
   margin: 5px 0;
   transform-style: preserve-3d;
+  overflow: hidden;
 }
 .tile {
   position: absolute;
@@ -254,7 +255,7 @@ body {
   transform-style: preserve-3d;
   border: 2px solid rgba(255,255,255,0.3);
 }
-.tile:active:not(.blocked) { transform: scale(0.9) translateZ(-5px) rotateX(0deg) rotateY(0deg) !important; cursor: pointer; }
+.tile:active:not(.blocked) { transform: scale(0.88) translateZ(0px) !important; }
 .tile:not(.blocked) { cursor: pointer; }
 .tile.blocked { cursor: not-allowed; }
 .tile.blocked {
@@ -642,7 +643,7 @@ function renderBoard() {
 
   const BOARD_W = 330;
   const BOARD_H = 300;
-  const GAP = 4;
+  const GAP = 3;
 
   // Layer configs: {rows, cols, offsetX, offsetY, tileW, tileH, baseZ}
   let tileIdx = 0;
@@ -666,10 +667,8 @@ function renderBoard() {
         div.style.height = L.tileH + 'px';
         div.style.zIndex = z;
 
-        // 3D transform for depth
-        const rotateY = (c - L.cols/2) * -4;
-        const rotateX = (r - L.rows/2) * 4;
-        div.style.transform = `translateZ(${li*8}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        // 3D transform - simpler depth effect
+        div.style.transform = `translateZ(${li * 6}px)`;
 
         if (tile.removed) {
           div.style.visibility = 'hidden';
