@@ -239,6 +239,7 @@ body {
   perspective: 800px;
   flex: 1;
   margin: 5px 0;
+  transform-style: preserve-3d;
 }
 .tile {
   position: absolute;
@@ -253,7 +254,9 @@ body {
   transform-style: preserve-3d;
   border: 2px solid rgba(255,255,255,0.3);
 }
-.tile:active:not(.blocked) { transform: scale(0.9) translateZ(-5px); }
+.tile:active:not(.blocked) { transform: scale(0.9) translateZ(-5px) rotateX(0deg) rotateY(0deg) !important; cursor: pointer; }
+.tile:not(.blocked) { cursor: pointer; }
+.tile.blocked { cursor: not-allowed; }
 .tile.blocked {
   opacity: 0.3;
   cursor: not-allowed;
@@ -560,9 +563,9 @@ const POWERS = { undo: 3, hint: 3, shuffle: 3 };
 
 // Board layer configs for stacked 3D layout
 const BOARD_LAYERS = [
-  {rows:4, cols:6, offsetX:5,  offsetY:10,  tileW:52, tileH:52, baseZ:10},
-  {rows:2, cols:4, offsetX:32, offsetY:42,  tileW:52, tileH:52, baseZ:30},
-  {rows:1, cols:2, offsetX:72, offsetY:78,  tileW:52, tileH:52, baseZ:50},
+  {rows:4, cols:6, offsetX:6,  offsetY:12,  tileW:50, tileH:50, baseZ:10},
+  {rows:2, cols:4, offsetX:31, offsetY:42,  tileW:50, tileH:50, baseZ:30},
+  {rows:1, cols:2, offsetX:81, offsetY:80,  tileW:50, tileH:50, baseZ:50},
 ];
 
 let difficulty = 'easy';
@@ -606,11 +609,10 @@ function initGame() {
   processing = false;
 
   // Build grid for stacked layout
-  // Total tiles = 6*4 + 4*2 + 2*1 = 24+8+2 = 34 tiles
-  const L0 = 6 * 4; // 24 tiles (layer 0)
-  const L1 = 4 * 2; // 8 tiles (layer 1)
-  const L2 = 2 * 1; // 2 tiles (layer 2)
-  const totalTiles = L0 + L1 + L2; // 34 tiles
+  const L0 = BOARD_LAYERS[0].rows * BOARD_LAYERS[0].cols; // 24
+  const L1 = BOARD_LAYERS[1].rows * BOARD_LAYERS[1].cols; // 8
+  const L2 = BOARD_LAYERS[2].rows * BOARD_LAYERS[2].cols; // 2
+  const totalTiles = L0 + L1 + L2; // 34
 
   // Make types appear in multiples of 3
   const tilesPerType = Math.ceil(totalTiles / numTypes);
