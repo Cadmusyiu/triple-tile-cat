@@ -768,9 +768,10 @@ function updatePowers() {
 
 // === GAME LOGIC ===
 function onTileClickIdx(idx) {
-  if (processing) return;
-  if (grid[idx].removed) return;
-  if (slots.length >= TOTAL_SLOTS) return;
+  console.log('CLICK idx=' + idx + ' processing=' + processing + ' removed=' + grid[idx].removed + ' slots.len=' + slots.length);
+  if (processing) { console.log('BLOCKED: processing'); return; }
+  if (grid[idx].removed) { console.log('BLOCKED: already removed'); return; }
+  if (slots.length >= TOTAL_SLOTS) { console.log('BLOCKED: slots full'); return; }
 
   // Save state for undo
   undoStack.push({ slots: [...slots], grid: grid.map(t => ({ ...t })) });
@@ -790,7 +791,7 @@ function onTileClickIdx(idx) {
 }
 
 function checkMatch() {
-  // Count occurrences
+  console.log('checkMatch: slots=' + JSON.stringify(slots) + ' processing=' + processing);
   const count = {};
   for (const t of slots) count[t] = (count[t] || 0) + 1;
 
